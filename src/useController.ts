@@ -85,10 +85,12 @@ export function useController<
       control._options.shouldUnregister || shouldUnregister;
 
     const updateMounted = (name: InternalFieldName, value: boolean) => {
-      const field: Field = get(control._fields, name);
+      const _cc: Field = get(control._fields, name);
 
-      if (field) {
-        field._f.mount = value;
+      if (_cc) {
+        _cc._f.mount = value;
+      } else {
+        console.log("this is not _cc")
       }
     };
 
@@ -119,8 +121,10 @@ export function useController<
         disabled,
         fields: control._fields,
         name,
-        value: get(control._fields, name)._f.value,
+        value: get(control._fields, name)._f.value
       });
+    } else {
+      console.log("it's else")
     }
   }, [disabled, name, control]);
 
